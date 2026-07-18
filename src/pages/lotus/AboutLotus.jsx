@@ -1,3 +1,5 @@
+import Foam3DViewer from "../../components/lotus/Foam3DViewer";
+
 export default function AboutLotus() {
   return (
     <div className="bg-[#FAF9F6] pt-[88px] md:pt-[112px] px-6 md:px-10 pb-20">
@@ -9,8 +11,12 @@ export default function AboutLotus() {
         <h1 className="mt-12 syne text-[13vw] md:text-[7vw] leading-[0.8] font-bold tracking-tighter">WE EMERGED<br />AS ONE OF THE<br /><span className="serif italic font-light">LARGEST FABRICATORS</span></h1>
 
         <div className="mt-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-12">
-          <div className="aspect-[4/3] rounded-[12px] overflow-hidden bg-[#EDE9E3] border border-black/5">
-            <img src="/my-portfolio/images/factory.jpg" alt="Lotus Factory - 1.5 Lakh Sqft" className="w-full h-full object-cover" />
+          <div className="space-y-6">
+            <div className="aspect-[4/3] rounded-[12px] overflow-hidden bg-[#EDE9E3] border border-black/5">
+              <img src="/my-portfolio/images/factory.jpg" alt="Lotus Factory - 1.5 Lakh Sqft" className="w-full h-full object-cover" />
+            </div>
+            {/* 3D Lotus Flower - Logo in 3D */}
+            <Foam3DViewer variant="lotus" height="320px" />
           </div>
           <div>
             <div className="mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-4">About Our Company — Custom Images</div>

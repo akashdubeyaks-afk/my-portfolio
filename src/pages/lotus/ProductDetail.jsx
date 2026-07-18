@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import Foam3DViewer from "../../components/lotus/Foam3DViewer";
 
 const data = {
   "epe-foam": { name: "EPE Foam", type: "Sheet & Fitments", desc: "Polyethylene foamed cotton, new eco packaging with non-cross linking closed-cell structure.", long: "Consists of numerous independent bubbles produced after physical foaming. Advantages: moisture protection, shockproof, sound insulation, thermal insulation, recycling, eco-friendly, high resistance to collision, chemical resistant. Ideal substitute of traditional materials. Can replace polystyrene and rigid/flexible polyurethane.", specs: ["Density: 18-35 kg/m³", "Thickness: 0.5-100mm", "Color: White, Pink, Black", "Size: Custom as per order"], uses: ["Printers", "Computers", "Engineering", "Furniture", "Medical", "Artillery Box"], img: "/my-portfolio/images/epe-foam.jpg" },
@@ -49,7 +50,10 @@ export default function ProductDetail() {
           </div>
 
           <div className="space-y-6">
-            <div className="aspect-[4/3] rounded-[16px] bg-[#EDE9E3] border border-black/5 overflow-hidden">
+            {/* 3D Viewer - Per Product */}
+            <Foam3DViewer variant={id} height="480px" />
+            
+            <div className="aspect-[4/3] rounded-[16px] bg-[#EDE9E3] border border-black/5 overflow-hidden hidden md:block">
               <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
             </div>
             <div className="grid grid-cols-2 gap-4">

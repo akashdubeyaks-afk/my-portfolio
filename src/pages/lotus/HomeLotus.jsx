@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import Foam3DViewer from "../../components/lotus/Foam3DViewer";
 
 export default function HomeLotus() {
   const ref = useRef(null);
@@ -56,32 +57,25 @@ export default function HomeLotus() {
             </div>
 
             <motion.div style={{ y: heroY }} className="relative lg:sticky lg:top-[112px]">
-              <div className="relative bg-white border border-black/[0.08] rounded-[16px] overflow-hidden">
-                <div className="flex justify-between items-center px-5 py-3 border-b border-black/[0.06] mono text-[10px] uppercase tracking-widest">
-                  <span>DWG — EP-FOAM-CUSTOM-01</span><span>Scale 1:5 • ±0.5mm</span>
-                </div>
-                <div className="relative aspect-[4/3] bg-[#F6F4EF] overflow-hidden">
-                  <img src="/my-portfolio/images/hero-foam.jpg" alt="Custom EP Foam" className="w-full h-full object-cover" />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex justify-between items-end">
-                    <div className="bg-[#0A0A0A] text-white rounded-full px-3 py-1.5 mono text-[10px] flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> Shockproof 100% • EPE 25kg/m³
-                    </div>
-                    <div className="hidden md:flex bg-white border border-black/10 rounded-full px-3 py-1.5 mono text-[10px]">Zero Movement</div>
+              <div className="space-y-4">
+                {/* 3D Viewer - Custom Generated */}
+                <Foam3DViewer variant="epe-foam" height="380px" />
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10 relative">
+                    <img src="/my-portfolio/images/epe-foam.jpg" alt="EPE Foam" className="w-full h-full object-cover" />
+                    <div className="absolute bottom-2 left-2 bg-black text-white text-[9px] mono px-2 py-1 rounded-full">Real Texture</div>
+                  </div>
+                  <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10 relative">
+                    <img src="/my-portfolio/images/custom-fitment.jpg" alt="Custom Fitment" className="w-full h-full object-cover" />
+                    <div className="absolute bottom-2 left-2 bg-white border border-black/10 text-[9px] mono px-2 py-1 rounded-full">Custom Cavity</div>
                   </div>
                 </div>
-                <div className="px-5 py-4 grid grid-cols-3 gap-4 border-t border-black/[0.06] mono text-[10px]">
+
+                <div className="bg-white border border-black/[0.08] rounded-[12px] px-4 py-3 grid grid-cols-3 gap-4 mono text-[10px]">
                   <div><div className="opacity-40 uppercase">Material</div><div className="font-bold mt-1">EPE Foam 30mm</div></div>
                   <div><div className="opacity-40 uppercase">Protection</div><div className="font-bold mt-1">Drop Test 1.2m ✓</div></div>
                   <div><div className="opacity-40 uppercase">MOQ</div><div className="font-bold mt-1">100 pcs</div></div>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10">
-                  <img src="/my-portfolio/images/epe-foam.jpg" alt="EPE Foam" className="w-full h-full object-cover" />
-                </div>
-                <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10">
-                  <img src="/my-portfolio/images/custom-fitment.jpg" alt="Custom Fitment" className="w-full h-full object-cover" />
                 </div>
               </div>
             </motion.div>
