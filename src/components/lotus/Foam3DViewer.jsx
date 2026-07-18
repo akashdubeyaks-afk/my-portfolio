@@ -1,189 +1,242 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, RoundedBox, OrbitControls, Environment, PerspectiveCamera } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { Float, RoundedBox, Environment, ContactShadows, PerspectiveCamera, useTexture, MeshTransmissionMaterial } from "@react-three/drei";
+import { useRef, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import * as THREE from "three";
 
-function FoamBlock({ color = "#EDE9E3", cavityColor = "#0A0A0A", productColor = "#7E22CE", showProduct = true }) {
+function EPBlock({ color = "#F5F1EB", productColor = "#0A0A0A" }) {
   const groupRef = useRef();
   const productRef = useRef();
 
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    const t = state.clock.elapsedTime;
     if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(t * 0.2) * 0.15;
-      groupRef.current.rotation.x = Math.sin(t * 0.15) * 0.05;
+      groupRef.current.rotation.y = Math.sin(t * 0.15) * 0.25;
+      groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.05;
     }
-    if (productRef.current && showProduct) {
-      productRef.current.rotation.y = t * 0.3;
+    if (productRef.current) {
+      productRef.current.position.y = Math.sin(t * 0.8) * 0.03 + 0.1;
     }
   });
 
   return (
     <group ref={groupRef}>
-      {/* Main Foam Block - Bottom part */}
-      <RoundedBox args={[3, 0.8, 2]} radius={0.08} smoothness={4} position={[0, -0.6, 0]}>
-        <meshStandardMaterial color={color} roughness={0.9} metalness={0.05} />
+      <RoundedBox args={[3.2, 0.35, 2.4]} radius={0.12} smoothness={8} position={[0, -0.9, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color={color} roughness={0.88} metalness={0.02} />
+      </RoundedBox>
+      <RoundedBox args={[3.2, 1.6, 0.32]} radius={0.08} smoothness={6} position={[0, 0.1, -1.04]} castShadow receiveShadow>
+        <meshStandardMaterial color={color} roughness={0.9} metalness={0.01} />
+      </RoundedBox>
+      <RoundedBox args={[0.32, 1.6, 2.4]} radius={0.08} smoothness={6} position={[-1.44, 0.1, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color={color} roughness={0.9} metalness={0.01} />
+      </RoundedBox>
+      <RoundedBox args={[0.32, 1.6, 2.4]} radius={0.08} smoothness={6} position={[1.44, 0.1, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color={color} roughness={0.9} metalness={0.01} />
+      </RoundedBox>
+      <RoundedBox args={[3.2, 0.7, 0.32]} radius={0.06} smoothness={6} position={[0, -0.35, 1.04]} castShadow receiveShadow>
+        <meshStandardMaterial color={color} roughness={0.9} metalness={0.01} />
       </RoundedBox>
 
-      {/* Left wall */}
-      <RoundedBox args={[0.4, 1.4, 2]} radius={0.05} position={[-1.3, 0.3, 0]}>
-        <meshStandardMaterial color={color} roughness={0.9} metalness={0.05} />
+      <RoundedBox args={[2.5, 0.05, 1.75]} radius={0.04} position={[0, -0.5, 0]}>
+        <meshStandardMaterial color="#1A1A1A" roughness={0.3} metalness={0.1} />
       </RoundedBox>
 
-      {/* Right wall */}
-      <RoundedBox args={[0.4, 1.4, 2]} radius={0.05} position={[1.3, 0.3, 0]}>
-        <meshStandardMaterial color={color} roughness={0.9} metalness={0.05} />
-      </RoundedBox>
-
-      {/* Back wall */}
-      <RoundedBox args={[2.2, 1.4, 0.4]} radius={0.05} position={[0, 0.3, -0.8]}>
-        <meshStandardMaterial color={color} roughness={0.9} metalness={0.05} />
-      </RoundedBox>
-
-      {/* Front wall - lower to see inside */}
-      <RoundedBox args={[2.2, 0.6, 0.4]} radius={0.05} position={[0, -0.1, 0.8]}>
-        <meshStandardMaterial color={color} roughness={0.9} metalness={0.05} />
-      </RoundedBox>
-
-      {/* Product inside cavity */}
-      {showProduct && (
-        <group ref={productRef} position={[0, 0.1, 0]}>
-          <RoundedBox args={[1.2, 0.8, 0.9]} radius={0.1} smoothness={4}>
-            <meshStandardMaterial color={productColor} roughness={0.3} metalness={0.2} emissive={productColor} emissiveIntensity={0.1} />
-          </RoundedBox>
-          {/* Highlight */}
-          <pointLight intensity={0.5} color={productColor} distance={2} />
-        </group>
-      )}
-
-      {/* Shadow catcher fake */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.1, 0]}>
-        <planeGeometry args={[5, 5]} />
-        <shadowMaterial transparent opacity={0.1} />
-      </mesh>
+      <group ref={productRef} position={[0, 0.15, 0]}>
+        <RoundedBox args={[1.4, 0.18, 0.9]} radius={0.06} smoothness={4} castShadow>
+          <meshStandardMaterial color={productColor} roughness={0.2} metalness={0.6} />
+        </RoundedBox>
+        <RoundedBox args={[1.25, 0.02, 0.75]} radius={0.03} position={[0, 0.11, 0]}>
+          <meshStandardMaterial color="#0A0A0A" roughness={0.1} metalness={0.8} emissive={productColor} emissiveIntensity={0.15} />
+        </RoundedBox>
+        <RoundedBox args={[0.3, 0.06, 0.3]} radius={0.04} position={[0.45, 0.12, 0.2]}>
+          <meshStandardMaterial color="#000" roughness={0.2} metalness={0.9} />
+        </RoundedBox>
+        <pointLight intensity={0.8} color={productColor} distance={2.5} decay={2} />
+      </group>
     </group>
   );
 }
 
-function LotusPetal({ position, rotation, color }) {
+function EPEStack() {
+  const groupRef = useRef();
+  useFrame((s) => {
+    if (groupRef.current) groupRef.current.rotation.y = s.clock.elapsedTime * 0.08;
+  });
   return (
-    <mesh position={position} rotation={rotation}>
-      <sphereGeometry args={[0.3, 16, 16, 0, Math.PI]} />
-      <meshStandardMaterial color={color} roughness={0.4} metalness={0.1} side={THREE.DoubleSide} />
-    </mesh>
+    <group ref={groupRef}>
+      {[0, 1, 2].map((i) => (
+        <Float key={i} speed={1 + i * 0.2} rotationIntensity={0.1} floatIntensity={0.3}>
+          <RoundedBox args={[2.8, 0.18, 1.8]} radius={0.05} position={[0, i * 0.35 - 0.35, 0]} castShadow receiveShadow>
+            <meshStandardMaterial color={i === 1 ? "#FEFEFE" : "#F5F1EB"} roughness={0.92} metalness={0.01} transparent opacity={0.95} />
+          </RoundedBox>
+        </Float>
+      ))}
+    </group>
   );
 }
 
-function LotusFlower3D() {
+function HoneycombStructure() {
+  const hexPositions = useMemo(() => {
+    const pos = [];
+    for (let x = -1; x <= 1; x++) {
+      for (let z = -1; z <= 1; z++) {
+        const offsetX = (z % 2) * 0.5;
+        pos.push([x + offsetX, 0, z * 0.866]);
+      }
+    }
+    return pos;
+  }, []);
   const groupRef = useRef();
-  useFrame((s) => {
+  useFrame((s) => { if (groupRef.current) groupRef.current.rotation.y = s.clock.elapsedTime * 0.05; });
+  return (
+    <group ref={groupRef}>
+      <RoundedBox args={[2.5, 0.15, 2.2]} radius={0.08} position={[0, -0.5, 0]}><meshStandardMaterial color="#D7CCC8" roughness={0.8} /></RoundedBox>
+      <group position={[0, 0.1, 0]}>
+        {hexPositions.map(([x, y, z], i) => (
+          <group key={i} position={[x, y, z]}>
+            <mesh castShadow><cylinderGeometry args={[0.32, 0.32, 0.6, 6]} /><meshStandardMaterial color="#FFF8E1" roughness={0.7} /></mesh>
+            <mesh><cylinderGeometry args={[0.28, 0.28, 0.62, 6]} /><meshBasicMaterial color="#000" transparent opacity={0.85} /></mesh>
+          </group>
+        ))}
+      </group>
+    </group>
+  );
+}
+
+function BubbleWrap() {
+  const bubbles = useMemo(() => {
+    const arr = [];
+    for (let x = -2; x <= 2; x++) {
+      for (let z = -1.5; z <= 1.5; z++) {
+        if (Math.random() > 0.15) arr.push([x * 0.45 + (Math.random() - 0.5) * 0.05, (Math.random() - 0.5) * 0.05, z * 0.5]);
+      }
+    }
+    return arr;
+  }, []);
+  const groupRef = useRef();
+  useFrame((s) => { if (groupRef.current) groupRef.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.2) * 0.05; });
+  return (
+    <group ref={groupRef}>
+      <mesh rotation={[-0.1, 0, 0]} receiveShadow>
+        <planeGeometry args={[3, 2.2]} />
+        <MeshTransmissionMaterial thickness={0.05} roughness={0.1} transmission={0.95} ior={1.4} chromaticAberration={0.02} distortion={0.1} color="#E3F2FD" />
+      </mesh>
+      {bubbles.map(([x, y, z], i) => (
+        <Float key={i} speed={0.5 + Math.random()} floatIntensity={0.2}>
+          <mesh position={[x, y + 0.06, z]} castShadow>
+            <sphereGeometry args={[0.18, 16, 16]} />
+            <MeshTransmissionMaterial thickness={0.02} roughness={0.05} transmission={0.9} ior={1.33} color="white" />
+          </mesh>
+        </Float>
+      ))}
+    </group>
+  );
+}
+
+function LotusFlowerPremium() {
+  const groupRef = useRef();
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
     if (groupRef.current) {
-      groupRef.current.rotation.y = s.clock.elapsedTime * 0.2;
+      groupRef.current.rotation.y = t * 0.15;
+      groupRef.current.position.y = Math.sin(t * 0.5) * 0.1;
     }
   });
-
   return (
-    <group ref={groupRef} scale={1.2}>
-      {/* Center */}
-      <mesh>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color="#FFC107" emissive="#FFC107" emissiveIntensity={0.3} />
-      </mesh>
-      {/* Petals - purple */}
+    <group ref={groupRef} scale={1.3}>
+      <mesh><sphereGeometry args={[0.18, 24, 24]} /><meshStandardMaterial color="#FFC107" emissive="#FF8F00" emissiveIntensity={0.2} roughness={0.3} metalness={0.2} /></mesh>
       {[0, 1, 2, 3, 4].map((i) => {
         const angle = (i / 5) * Math.PI * 2;
         return (
-          <LotusPetal
-            key={i}
-            position={[Math.cos(angle) * 0.35, Math.sin(angle) * 0.15, Math.sin(angle) * 0.35]}
-            rotation={[0, -angle, 0.5]}
-            color="#7E22CE"
-          />
+          <group key={`inner-${i}`} rotation={[0, angle, 0]}>
+            <mesh position={[0, 0.1, 0.42]} rotation={[0.4, 0, 0]} castShadow>
+              <sphereGeometry args={[0.32, 20, 20, 0, Math.PI]} />
+              <meshStandardMaterial color="#CE93D8" roughness={0.4} side={THREE.DoubleSide} />
+            </mesh>
+          </group>
         );
       })}
-      {/* Green leaves */}
-      {[0, 1, 2].map((i) => {
-        const angle = (i / 3) * Math.PI * 2 + 0.5;
+      {[0, 1, 2, 3, 4, 5].map((i) => {
+        const angle = (i / 6) * Math.PI * 2 + 0.26;
         return (
-          <mesh key={`leaf-${i}`} position={[Math.cos(angle) * 0.6, -0.2, Math.sin(angle) * 0.6]} rotation={[1, angle, 0]}>
-            <sphereGeometry args={[0.25, 12, 12, 0, Math.PI]} />
-            <meshStandardMaterial color="#2E7D32" roughness={0.6} />
-          </mesh>
+          <group key={`outer-${i}`} rotation={[0, angle, 0]}>
+            <mesh position={[0, -0.05, 0.58]} rotation={[0.6, 0, 0]} castShadow>
+              <sphereGeometry args={[0.42, 24, 24, 0, Math.PI]} />
+              <meshStandardMaterial color="#7E22CE" roughness={0.5} side={THREE.DoubleSide} />
+            </mesh>
+          </group>
         );
       })}
+      {[0, 1, 2].map((i) => {
+        const angle = (i / 3) * Math.PI * 2;
+        return (
+          <group key={`leaf-${i}`} rotation={[0, angle, 0]}>
+            <mesh position={[0, -0.25, 0.75]} rotation={[1.1, 0, 0]} castShadow>
+              <sphereGeometry args={[0.35, 16, 16, 0, Math.PI]} />
+              <meshStandardMaterial color="#2E7D32" roughness={0.7} side={THREE.DoubleSide} />
+            </mesh>
+          </group>
+        );
+      })}
+      <pointLight intensity={0.6} color="#7E22CE" distance={3} decay={2} />
     </group>
   );
 }
 
-export default function Foam3DViewer({ variant = "default", color, productColor, showProduct = true, autoRotate = true, enableZoom = true, height = "400px" }) {
-  const [isInteracting, setIsInteracting] = useState(false);
+export default function Foam3DViewer({ variant = "default", height = "420px" }) {
+  const [isHover, setIsHover] = useState(false);
 
-  const getColors = () => {
+  const getComponent = () => {
     switch (variant) {
-      case "epe-foam": return { foam: "#FAFAFA", product: "#7E22CE" };
-      case "ep-foam": return { foam: "#EDE9E3", product: "#0A0A0A" };
-      case "cross-linked": return { foam: "#1A1A1A", product: "#FF6F00" };
-      case "air-bubble": return { foam: "#E3F2FD", product: "#0277BD" };
-      case "custom-fitments": return { foam: "#F3E5F5", product: "#7E22CE" };
-      case "honeycomb": return { foam: "#FFF8E1", product: "#795548" };
-      case "lotus": return { foam: "#F3E5F5", product: "#7E22CE" };
-      default: return { foam: color || "#EDE9E3", product: productColor || "#7E22CE" };
+      case "epe-foam": return <EPEStack />;
+      case "ep-foam": return <EPBlock color="#F5F1EB" productColor="#0A0A0A" />;
+      case "cross-linked": return <EPBlock color="#1A1A1A" productColor="#FF6F00" />;
+      case "air-bubble": return <BubbleWrap />;
+      case "custom-fitments": return <EPBlock color="#F3E5F5" productColor="#7E22CE" />;
+      case "honeycomb": return <HoneycombStructure />;
+      case "lotus": return <LotusFlowerPremium />;
+      default: return <EPBlock color="#F5F1EB" productColor="#7E22CE" />;
     }
   };
 
-  const colors = getColors();
+  const titles = {
+    "epe-foam": "EPE Foam • 3 Sheets Stack • 25kg/m³",
+    "ep-foam": "EP Foam • Custom Cavity • Shockproof",
+    "cross-linked": "Cross Linked • Black • High Resilience",
+    "air-bubble": "Air Bubble • 10mm • Transparent",
+    "custom-fitments": "Custom Fitment • Zero Movement • 48HR",
+    "honeycomb": "Honeycomb • Hexagonal • Eco Strong",
+    "lotus": "Lotus Flower • 3D Logo • Purple + Green",
+    "default": "Custom Foam • Drag to Rotate"
+  };
 
   return (
-    <div className="relative w-full rounded-[16px] overflow-hidden bg-[#F6F4EF] border border-black/5" style={{ height }}>
-      <Canvas
-        shadows
-        camera={{ position: [3, 2, 3], fov: 45 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        onPointerDown={() => setIsInteracting(true)}
-        onPointerUp={() => setIsInteracting(false)}
-      >
-        <PerspectiveCamera makeDefault position={[3.5, 1.8, 3.5]} fov={38} />
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[5, 8, 5]} intensity={1.2} castShadow shadow-mapSize={[1024, 1024]} />
-        <directionalLight position={[-3, 4, -2]} intensity={0.4} />
-        <pointLight position={[0, 3, 0]} intensity={0.5} color={colors.product} />
-
-        <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.4} floatingRange={[-0.1, 0.1]}>
-          {variant === "lotus" ? <LotusFlower3D /> : <FoamBlock color={colors.foam} productColor={colors.product} showProduct={showProduct} />}
-        </Float>
-
-        <Environment preset="studio" />
-        <OrbitControls
-          enablePan={false}
-          enableZoom={enableZoom}
-          minDistance={2}
-          maxDistance={8}
-          minPolarAngle={0.2}
-          maxPolarAngle={Math.PI / 2.2}
-          autoRotate={!isInteracting && autoRotate}
-          autoRotateSpeed={0.8}
-          dampingFactor={0.05}
-          enableDamping
-        />
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.2, 0]} receiveShadow>
-          <planeGeometry args={[10, 10]} />
-          <shadowMaterial transparent opacity={0.12} />
-        </mesh>
+    <div className="relative w-full rounded-[16px] overflow-hidden bg-[#F6F4EF] border border-black/[0.06] shadow-[0_10px_40px_rgba(0,0,0,0.04)]" style={{ height }} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 1.5, 3.8], fov: 32 }} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
+        <color attach="background" args={["#F6F4EF"]} />
+        <fog attach="fog" args={["#F6F4EF", 6, 12]} />
+        <PerspectiveCamera makeDefault position={[2.8, 1.6, 2.8]} fov={34} />
+        <ambientLight intensity={0.45} />
+        <directionalLight position={[6, 8, 5]} intensity={1.4} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0001} />
+        <directionalLight position={[-4, 3, -3]} intensity={0.35} color="#EDE7F6" />
+        <spotLight position={[0, 4, 2]} intensity={0.6} angle={0.4} penumbra={0.6} color="#FFFFFF" castShadow />
+        <group position={[0, -0.2, 0]}>{getComponent()}</group>
+        <ContactShadows position={[0, -1.15, 0]} opacity={0.35} scale={6} blur={2.8} far={2.5} resolution={512} color="#000000" />
+        <Environment preset="studio" background={false} />
       </Canvas>
 
-      {/* Overlay UI */}
-      <div className="absolute top-3 left-3 flex gap-2">
-        <span className="px-2.5 py-1 rounded-full bg-black text-white mono text-[9px] uppercase tracking-widest">3D • Drag to Rotate</span>
-        <span className="hidden md:flex px-2.5 py-1 rounded-full bg-white/80 backdrop-blur border border-black/10 mono text-[9px] uppercase">Scroll to Zoom</span>
+      <div className="absolute top-0 left-0 right-0 flex justify-between items-center px-4 py-3 border-b border-black/[0.06] bg-[#F6F4EF]/80 backdrop-blur-md">
+        <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#00C950] animate-pulse" /><span className="mono text-[10px] tracking-[0.15em] uppercase font-medium">3D • {titles[variant] || titles.default}</span></div>
+        <div className="flex gap-2"><span className="px-2 py-1 rounded-full bg-black text-white mono text-[9px]">Drag • Rotate</span><span className="hidden md:block px-2 py-1 rounded-full bg-white border border-black/10 mono text-[9px]">Scroll • Zoom</span></div>
       </div>
 
-      <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center">
-        <div className="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur border border-black/5 mono text-[10px] flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> {variant.toUpperCase()} • Custom Generated
-        </div>
-        <div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[10px]">3D</div>
+      <div className="absolute bottom-0 left-0 right-0 p-3 flex justify-between items-end bg-gradient-to-t from-black/5 to-transparent pointer-events-none">
+        <div className="px-3 py-1.5 rounded-full bg-[#0A0A0A] text-white mono text-[10px] flex items-center gap-2 backdrop-blur-md">Real-time WebGL • 60fps</div>
       </div>
+
+      <motion.div initial={false} animate={{ opacity: isHover ? 1 : 0, y: isHover ? 0 : 8 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none bg-black text-white px-4 py-2 rounded-full mono text-[10px] tracking-widest uppercase hidden lg:flex items-center gap-2">
+        <span>●</span> Drag to explore • Scroll to zoom
+      </motion.div>
     </div>
   );
 }
