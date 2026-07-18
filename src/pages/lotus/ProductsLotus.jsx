@@ -19,33 +19,31 @@ function ProductCard({ p, i }) {
       className="group"
     >
       <Link to={`/products/${p.id}`} className="block rounded-[16px] bg-white border border-black/[0.06] overflow-hidden hover:border-black/15 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 h-full flex flex-col">
-        {/* Visual - Pure CSS, No Image, No 3D - Fast */}
-        <div className="aspect-[4/3] relative overflow-hidden" style={{ background: p.color }}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[68%] h-[56%] relative">
-              <div className="absolute inset-0 bg-white/80 border border-black/10 rounded-[8px] shadow-[0_8px_24px_rgba(0,0,0,0.08)]" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[56%] h-[44%] bg-[#0A0A0A] rounded-[4px] shadow-[inset_0_2px_8px_rgba(0,0,0,0.4)]" />
-              <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[40%] h-[2px] bg-black/10 rounded-full" />
-            </div>
-          </div>
-          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur mono text-[9px] font-bold tracking-widest uppercase border border-black/5">{p.type}</div>
+        {/* Visual - EP Foam Only, Premium Image with Name Overlay */}
+        <div className="aspect-[4/3] relative overflow-hidden bg-[#F6F4EF]">
+          <img src={`/my-portfolio/images/products/${p.id}/hero.jpg`} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur mono text-[9px] font-bold tracking-widest uppercase border border-black/5">{p.type} • EP Only</div>
           <div className="absolute top-3 right-3 w-2 h-2 rounded-full" style={{ background: p.accent, boxShadow: `0 0 8px ${p.accent}60` }} />
-          <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center">
-            <span className="px-2.5 py-1 rounded-full bg-black text-white mono text-[9px]">{p.price}</span>
-            <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur border border-black/5 mono text-[9px]">MOQ {p.moq}</span>
+          <div className="absolute bottom-0 left-0 right-0 p-3">
+            <div className="text-white font-bold text-sm syne">{p.name}</div>
+            <div className="text-white/70 mono text-[9px] uppercase mt-0.5">{p.spec}</div>
           </div>
+          <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-black text-white mono text-[9px]">{p.price}</div>
         </div>
 
         <div className="p-5 flex-1 flex flex-col">
           <div className="flex justify-between items-start">
-            <div><div className="mono text-[10px] opacity-40">({p.num})</div><div className="syne text-[18px] font-bold leading-none mt-1 group-hover:tracking-wide transition-all">{p.name}</div></div>
+            <div><div className="mono text-[10px] opacity-40">({p.num}) • 4 Images</div><div className="syne text-[18px] font-bold leading-none mt-1 group-hover:tracking-wide transition-all">{p.name}</div></div>
             <div className="w-8 h-8 rounded-full border border-black/10 grid place-items-center group-hover:bg-black group-hover:text-white group-hover:rotate-45 transition-all duration-300">↗</div>
           </div>
-          <div className="mono text-[10px] opacity-50 mt-2">{p.spec}</div>
+          <div className="mono text-[10px] opacity-50 mt-2">{p.spec} • No Thermocol</div>
           <p className="text-[12px] leading-[1.5] opacity-60 mt-3 line-clamp-2 flex-1">{p.desc}</p>
-          <div className="mt-4 h-px bg-black/5 group-hover:bg-black/10 transition" />
-          <div className="mt-3 flex justify-between items-center mono text-[10px] uppercase">
-            <span className="opacity-40">Click → Separate 3D Page</span><span className="opacity-60 group-hover:opacity-100 transition">View →</span>
+          <div className="mt-3 flex gap-1.5">
+            <span className="px-2 py-1 rounded-full bg-black/[0.04] border border-black/5 mono text-[8px] uppercase">Material</span>
+            <span className="px-2 py-1 rounded-full bg-black/[0.04] border border-black/5 mono text-[8px] uppercase">Quality</span>
+            <span className="px-2 py-1 rounded-full bg-black/[0.04] border border-black/5 mono text-[8px] uppercase">Details</span>
+            <span className="px-2 py-1 rounded-full bg-black/[0.04] border border-black/5 mono text-[8px] uppercase">Hero</span>
           </div>
         </div>
       </Link>

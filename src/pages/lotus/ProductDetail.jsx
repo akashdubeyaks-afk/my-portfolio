@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { lazy, Suspense } from "react";
-const ProductVideoShots = lazy(() => import("../../components/lotus/ProductVideoShots"));
+const ProductImageGallery = lazy(() => import("../../components/lotus/ProductImageGallery"));
 const Foam3DViewer = lazy(() => import("../../components/lotus/Foam3DViewer"));
 function Loader3D() { return <div className="w-full h-[400px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>; }
 
@@ -58,9 +58,9 @@ export default function ProductDetail() {
           </div>
 
           <div className="space-y-6">
-            <Suspense fallback={<Loader3D />}><ProductVideoShots productId={id} /></Suspense>
+            <Suspense fallback={<Loader3D />}><ProductImageGallery productId={id} /></Suspense>
             <div className="hidden md:block">
-              <div className="mono text-[10px] uppercase opacity-40 mb-3">Also — Interactive 3D Viewer</div>
+              <div className="mono text-[10px] uppercase opacity-40 mb-3">Also — Interactive 3D Viewer (EP Foam Only, No Thermocol)</div>
               <Suspense fallback={<Loader3D />}><Foam3DViewer variant={id} height="320px" /></Suspense>
             </div>
             <div className="grid grid-cols-2 gap-4">
