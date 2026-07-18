@@ -1,21 +1,23 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import ExplodingBox from "../../components/lotus/ExplodingBox";
 import Foam3DViewer from "../../components/lotus/Foam3DViewer";
 
 export default function HomeLotus() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const [exploded, setExploded] = useState(false);
 
   return (
     <div ref={ref} className="bg-[#FAF9F6] text-[#0A0A0A]">
       <section className="relative min-h-[92vh] md:min-h-[100vh] pt-[96px] md:pt-[112px] px-6 md:px-10 pb-12">
         <div className="max-w-[1600px] mx-auto">
           <div className="border-t border-black/10 pt-4 flex justify-between mono text-[10px] tracking-[0.2em] uppercase">
-            <span className="opacity-50">Index — 01 / Home</span>
-            <span className="hidden md:flex gap-8"><span>● Available for custom orders</span><span>48hr sample turnaround</span></span>
+            <span className="opacity-50">Index — 01 / Home • Custom Generated 3D — No Images</span>
+            <span className="hidden md:flex gap-8"><span>● Box with all products together</span><span>Click to divide into parts</span></span>
           </div>
 
           <div className="mt-8 md:mt-12 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 md:gap-16 items-start">
@@ -29,24 +31,24 @@ export default function HomeLotus() {
 
               <div className="mt-8 md:mt-10 grid md:grid-cols-[1.2fr_0.8fr] gap-8 border-t border-black/10 pt-6">
                 <p className="text-[16px] md:text-[18px] leading-[1.5] tracking-tight">
-                  Lotus International is one of India’s largest fabricator & exporter of <span className="bg-black text-white px-1.5 py-0.5 text-[13px]">EPE foam, EP foam & custom fitments</span>. We make shapes as per your order — so your products deliver safely, zero damage.
+                  Lotus International — <span className="bg-black text-white px-1.5 py-0.5 text-[13px]">All products in one box together</span>. Click karte hi alag-alag parts me divide ho jayega — 3D exploded view.
                 </p>
                 <div className="space-y-4">
                   <p className="mono text-[10px] leading-[1.6] uppercase tracking-wide opacity-60">
-                    ISO 9001 certified manufacturing with 1.5 lakh sqft plant, high-end machines for world-class cushion packaging materials.
+                    No images used. Pure 3D with custom foam blocks. Box me 6 products ek sath, click pe alag.
                   </p>
                   <div className="flex gap-3">
                     <Link to="/contact" className="bg-black text-white px-6 py-3 rounded-full text-[12px] font-bold tracking-wide flex items-center gap-2 hover:bg-zinc-900 transition">Request Custom Sample <ArrowUpRight size={14} /></Link>
-                    <Link to="/products" className="border border-black/15 px-6 py-3 rounded-full text-[12px] font-bold tracking-wide hover:bg-black/5 transition">View Specs</Link>
+                    <Link to="/products" className="border border-black/15 px-6 py-3 rounded-full text-[12px] font-bold tracking-wide hover:bg-black/5 transition">View All 6</Link>
                   </div>
                 </div>
               </div>
 
               <div className="mt-12 grid grid-cols-3 border border-black/[0.08] rounded-[12px] overflow-hidden">
                 {[
-                  ["1.5L+", "Sqft Plant\nBhiwandi, MH"],
-                  ["1000+", "Products\nDelivered Safely"],
-                  ["48HR", "Sample\nTurnaround"],
+                  ["6-in-1", "Products In\nOne Box"],
+                  ["Click →", "Explode Into\nSeparate Parts"],
+                  ["100%", "Custom 3D\nNo Images"],
                 ].map(([n, l]) => (
                   <div key={n} className="p-4 md:p-5 border-r last:border-r-0 border-black/[0.08]">
                     <div className="syne text-2xl md:text-3xl font-bold tracking-tighter">{n}</div>
@@ -56,27 +58,17 @@ export default function HomeLotus() {
               </div>
             </div>
 
-            <motion.div style={{ y: heroY }} className="relative lg:sticky lg:top-[112px]">
-              <div className="space-y-4">
-                {/* 3D Viewer - Custom Generated */}
-                <Foam3DViewer variant="epe-foam" height="380px" />
+            <motion.div style={{ y: heroY }} className="relative lg:sticky lg:top-[112px] space-y-4">
+              <ExplodingBox onExplode={setExploded} />
+              
+              <div className="grid grid-cols-2 gap-3">
+                <Foam3DViewer variant="epe-foam" height="200px" />
+                <Foam3DViewer variant="lotus" height="200px" />
+              </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10 relative">
-                    <img src="/my-portfolio/images/epe-foam.jpg" alt="EPE Foam" className="w-full h-full object-cover" />
-                    <div className="absolute bottom-2 left-2 bg-black text-white text-[9px] mono px-2 py-1 rounded-full">Real Texture</div>
-                  </div>
-                  <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10 relative">
-                    <img src="/my-portfolio/images/custom-fitment.jpg" alt="Custom Fitment" className="w-full h-full object-cover" />
-                    <div className="absolute bottom-2 left-2 bg-white border border-black/10 text-[9px] mono px-2 py-1 rounded-full">Custom Cavity</div>
-                  </div>
-                </div>
-
-                <div className="bg-white border border-black/[0.08] rounded-[12px] px-4 py-3 grid grid-cols-3 gap-4 mono text-[10px]">
-                  <div><div className="opacity-40 uppercase">Material</div><div className="font-bold mt-1">EPE Foam 30mm</div></div>
-                  <div><div className="opacity-40 uppercase">Protection</div><div className="font-bold mt-1">Drop Test 1.2m ✓</div></div>
-                  <div><div className="opacity-40 uppercase">MOQ</div><div className="font-bold mt-1">100 pcs</div></div>
-                </div>
+              <div className="bg-white border border-black/10 rounded-[12px] p-4 mono text-[10px]">
+                <div className="flex justify-between"><span className="opacity-40">STATUS</span><span className={`font-bold ${exploded ? "text-[#00C950]" : "text-black"}`}>{exploded ? "EXPLODED • 6 Parts Separated" : "ASSEMBLED • All Together in Box"}</span></div>
+                <div className="mt-2 h-1 bg-black/5 rounded-full overflow-hidden"><div className={`h-full bg-black transition-all duration-700 ${exploded ? "w-full" : "w-1/6"}`} /></div>
               </div>
             </motion.div>
           </div>
@@ -86,17 +78,18 @@ export default function HomeLotus() {
       <section className="border-y border-black/[0.08] bg-white">
         <div className="max-w-[1600px] mx-auto px-6 md:px-10 py-16 md:py-24 grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
           <div>
-            <div className="mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-6">01 / Why Custom Foam?</div>
-            <h2 className="syne text-[8vw] md:text-[4vw] leading-[0.85] tracking-tighter font-bold">GENERIC PACKAGING<br />BREAKS PRODUCTS.<br /><span className="serif italic font-light">WE FIX THAT.</span></h2>
+            <div className="mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-6">01 / Interactive Demo</div>
+            <h2 className="syne text-[8vw] md:text-[4vw] leading-[0.85] tracking-tighter font-bold">BOX ME<br />SAB EK SATH.<br /><span className="serif italic font-light">CLICK PE ALAG.</span></h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8 pt-4">
             {[
-              ["32%", "Products damaged due to poor packaging in transit — industry average. Custom foam reduces it to <0.5%."],
-              ["₹18,400", "Average cost of return & replacement per damaged unit. Foam fitment costs ₹18 — 1000x ROI."],
-              ["48HR", "From drawing to sample. Send product photo + dimensions, we CAD design cavity and ship sample."],
-            ].map(([n, d], i) => (
-              <div key={i} className="border-t border-black/10 pt-6">
-                <div className="syne text-4xl font-bold tracking-tighter">{n}</div>
+              ["01", "Together", "Sabhi 6 products ek hi outer box me band — Lotus purple lid ke sath."],
+              ["02", "Click → Divide", "Box pe click karte hi top lid upar, 6 foam blocks alag directions me explode."],
+              ["03", "No Images", "Koi generated image nahi — 100% Three.js 3D, realistic shadows, bevel, glow."],
+            ].map(([n, t, d]) => (
+              <div key={n} className="border-t border-black/10 pt-6">
+                <div className="mono text-[11px] opacity-40">({n})</div>
+                <div className="syne text-xl font-bold mt-2">{t}</div>
                 <p className="mt-3 text-[13px] leading-[1.5] opacity-70">{d}</p>
               </div>
             ))}
@@ -107,25 +100,25 @@ export default function HomeLotus() {
       <section className="px-6 md:px-10 py-16 md:py-24 max-w-[1600px] mx-auto">
         <div className="flex justify-between items-end border-b border-black/[0.08] pb-6 mb-10">
           <h2 className="syne text-[9vw] md:text-[5vw] leading-[0.85] font-bold tracking-tighter">PRODUCTS &<br />SOLUTIONS</h2>
-          <div className="hidden md:block mono text-[10px] uppercase max-w-[240px] opacity-50">Polyethylene foamed cotton, also called EPE foam, is new eco packaging with closed-cell structure.</div>
+          <div className="hidden md:block mono text-[10px] uppercase max-w-[240px] opacity-50">6 products — each has separate 3D page. Click to view individual 3D viewer with realistic cavity.</div>
         </div>
 
         <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
           {[
-            { id: "epe-foam", num: "01", name: "EPE Foam Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm • Custom", desc: "Non-cross linked closed-cell, moisture proof, shockproof, sound insulation, thermal, recyclable.", uses: "Electronics, Furniture, Medical", img: "/my-portfolio/images/epe-foam.jpg" },
-            { id: "ep-foam", num: "02", name: "EP Foam — Custom Moulded", spec: "15–35 kg/m³ • Moulded • ±0.5mm Tolerance", desc: "Expanded polystyrene custom moulded as per product shape, ensures safe delivery for fragile items.", uses: "Engineering, Artillery Box, Printers", img: "/my-portfolio/images/ep-foam.jpg" },
-            { id: "cross-linked", num: "03", name: "Cross Linked / EVA Foam", spec: "33–200 kg/m³ • High Resilience • Fine Cell", desc: "Premium grade for superior protection, ideal for high-end products where look matters.", uses: "Handicraft, Medical, Automotive", img: "/my-portfolio/images/cross-linked-foam.jpg" },
-            { id: "air-bubble", num: "04", name: "Air Bubble Pouches & Rolls", spec: "10–25mm Bubble • LDPE • Transparent", desc: "High strength nature due to air barrier, lightweight, reusable, scratch protection.", uses: "E-commerce, Glassware, Cosmetics", img: "/my-portfolio/images/air-bubble.jpg" },
-            { id: "custom-fitments", num: "05", name: "Custom Foam Fitments", spec: "CAD • Sample First • Any Qty", desc: "100% made to order. Send product photo + LxWxH, we design cavity with zero movement.", uses: "Any Product, Any Size", img: "/my-portfolio/images/custom-fitment.jpg" },
+            { id: "epe-foam", num: "01", name: "EPE Foam Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm", color: "#FEFEFE" },
+            { id: "ep-foam", num: "02", name: "EP Foam — Custom Moulded", spec: "15–35 kg/m³ • ±0.5mm Tolerance", color: "#EDE9E3" },
+            { id: "cross-linked", num: "03", name: "Cross Linked / EVA Foam", spec: "33–200 kg/m³ • High Resilience", color: "#1A1A1A" },
+            { id: "air-bubble", num: "04", name: "Air Bubble Pouches & Rolls", spec: "10–25mm Bubble • LDPE", color: "#E3F2FD" },
+            { id: "custom-fitments", num: "05", name: "Custom Foam Fitments", spec: "CAD • Sample First • Any Qty", color: "#F3E5F5" },
+            { id: "honeycomb", num: "06", name: "Honeycomb Paper", spec: "Hexagonal • Eco • Biodegradable", color: "#FFF8E1" },
           ].map((p) => (
-            <Link key={p.id} to={`/products/${p.id}`} className="group grid lg:grid-cols-[80px_80px_1.2fr_0.8fr_0.7fr_40px] gap-6 py-6 items-center hover:bg-black/[0.02] -mx-6 md:-mx-10 px-6 md:px-10 transition">
-              <div className="mono text-[11px] opacity-30 group-hover:opacity-100 transition">({p.num})</div>
-              <div className="w-16 h-16 rounded-[8px] overflow-hidden border border-black/10 hidden md:block">
-                <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <Link key={p.id} to={`/products/${p.id}`} className="group grid lg:grid-cols-[80px_80px_1.2fr_0.8fr_40px] gap-6 py-6 items-center hover:bg-black/[0.02] -mx-6 md:-mx-10 px-6 md:px-10 transition">
+              <div className="mono text-[11px] opacity-30">({p.num})</div>
+              <div className="w-14 h-14 rounded-[8px] border border-black/10 flex items-center justify-center" style={{ background: p.color }}>
+                <div className="w-8 h-2 rounded-full bg-black/20" />
               </div>
               <div className="syne text-[18px] md:text-[24px] font-bold tracking-tight leading-none group-hover:tracking-wide transition-all duration-500">{p.name}</div>
               <div className="mono text-[11px] opacity-60 hidden lg:block">{p.spec}</div>
-              <div className="text-[12px] leading-[1.4] opacity-60 hidden lg:block">{p.desc} <span className="opacity-40">— {p.uses}</span></div>
               <div className="w-8 h-8 rounded-full border border-black/10 grid place-items-center group-hover:bg-black group-hover:text-white group-hover:rotate-45 transition-all duration-500">↗</div>
             </Link>
           ))}
@@ -134,55 +127,23 @@ export default function HomeLotus() {
 
       <section className="bg-[#0A0A0A] text-[#FAF9F6] px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-[1600px] mx-auto">
-          <div className="flex justify-between items-start mb-16">
-            <h2 className="syne text-[10vw] md:text-[5vw] leading-[0.85] font-bold tracking-tighter">HOW IT<br />WORKS</h2>
-            <div className="hidden md:block mono text-[10px] uppercase opacity-40 max-w-[260px]">No catalogs. No standard sizes. Everything made to order. 4 steps, 48hr sample.</div>
-          </div>
-          <div className="grid md:grid-cols-4 gap-[1px] bg-white/10 border border-white/10 rounded-[12px] overflow-hidden">
+          <h2 className="syne text-[10vw] md:text-[5vw] leading-[0.85] font-bold tracking-tighter">EVERY PRODUCT<br />HAS SEPARATE<br /><span className="text-[#00FF94]">3D PAGE</span></h2>
+          <p className="mt-6 mono text-[11px] uppercase opacity-50 max-w-[400px]">Each product has its own dedicated page with interactive 3D viewer — drag, zoom, explore cavity, see product inside.</p>
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ["01", "Send Product Details", "Photo + LxWxH + weight + fragile level. WhatsApp or email.", "2 min"],
-              ["02", "We CAD Design Cavity", "We create 2D drawing with foam thickness, no movement, drop test calculation.", "4 hours"],
-              ["03", "Sample Approval", "We cut sample on CNC, ship to you. You test with actual product.", "24-48 hours"],
-              ["04", "Bulk Production", "After approval, mass production with same machine, 100% consistency.", "3-5 days"],
-            ].map(([num, title, desc, time]) => (
-              <div key={num} className="bg-[#0A0A0A] p-8">
-                <div className="flex justify-between"><span className="mono text-[11px] opacity-40">({num})</span><span className="mono text-[10px] px-2 py-1 rounded-full bg-white/10">{time}</span></div>
-                <h4 className="mt-8 syne text-[18px] font-bold leading-tight">{title}</h4>
-                <p className="mt-3 text-[12px] leading-[1.5] opacity-60">{desc}</p>
-              </div>
+              { id: "epe-foam", name: "EPE Foam", desc: "Stack of 3 sheets floating" },
+              { id: "ep-foam", name: "EP Foam", desc: "White block with black device" },
+              { id: "cross-linked", name: "Cross Linked", desc: "Black premium foam" },
+              { id: "air-bubble", name: "Air Bubble", desc: "Transparent bubbles with transmission" },
+              { id: "custom-fitments", name: "Custom Fitments", desc: "Pink foam + purple product glow" },
+              { id: "honeycomb", name: "Honeycomb", desc: "Hexagonal eco structure" },
+            ].map((p) => (
+              <Link key={p.id} to={`/products/${p.id}`} className="rounded-[12px] bg-white/[0.06] border border-white/10 p-5 hover:bg-white/[0.08] transition group">
+                <div className="flex justify-between"><span className="mono text-[10px] opacity-40">{p.id}</span><span className="w-6 h-6 rounded-full bg-white text-black grid place-items-center group-hover:rotate-45 transition">↗</span></div>
+                <div className="mt-4 syne font-bold">{p.name}</div>
+                <div className="text-xs opacity-60 mt-1">{p.desc}</div>
+              </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 md:px-10 py-16 md:py-24 max-w-[1600px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
-        <div>
-          <div className="mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-6">Factory & Trust</div>
-          <h2 className="syne text-[8vw] md:text-[4vw] leading-[0.85] font-bold tracking-tighter">1.5 LAKH SQFT.<br />ISO 9001.<br />HIGH-END<br />MACHINES.</h2>
-          <div className="mt-8 space-y-6 text-[14px] leading-[1.6] opacity-70">
-            <p>We tie up with renowned ISO 9001 certified manufacturing company. Factory premises comprising more than 1.5 lakhs sqft built-up area as per international standards.</p>
-            <p>Installed high-end quality machines that gives world-class output of cushion packaging materials.</p>
-          </div>
-        </div>
-        <div className="relative">
-          <div className="aspect-[4/3] rounded-[16px] overflow-hidden bg-[#F0EDE8] border border-black/5">
-            <img src="/my-portfolio/images/factory.jpg" alt="Lotus Factory" className="w-full h-full object-cover" />
-            <div className="absolute bottom-4 left-4 bg-[#0A0A0A] text-white px-4 py-2 rounded-full mono text-[10px] flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> Live Production • Bhiwandi Plant</div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 md:px-10 pb-20 max-w-[1600px] mx-auto">
-        <div className="border border-black/10 rounded-[16px] p-[1px]">
-          <div className="bg-[#0A0A0A] text-[#FAF9F6] rounded-[15px] px-8 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-            <div>
-              <h3 className="syne text-[9vw] md:text-[4vw] leading-[0.85] font-bold tracking-tighter">GET YOUR<br />CUSTOM FOAM<br />IN 48 HOURS</h3>
-              <p className="mt-4 mono text-[11px] uppercase opacity-50 max-w-[360px]">Send product photo + dimensions on WhatsApp. We CAD design cavity and ship sample. No charge for sample if bulk order confirmed.</p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Link to="/contact" className="bg-white text-black px-10 py-4 rounded-full text-[13px] font-bold tracking-wide hover:bg-zinc-100 transition text-center">Request Sample →</Link>
-              <a href="https://wa.me/919322021868" className="border border-white/20 px-10 py-4 rounded-full text-[13px] font-bold tracking-wide hover:bg-white/10 transition text-center">WhatsApp: +91 93220 21868</a>
-            </div>
           </div>
         </div>
       </section>
