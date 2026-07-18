@@ -1,9 +1,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import ExplodingBox from "../../components/lotus/ExplodingBox";
-import Foam3DViewer from "../../components/lotus/Foam3DViewer";
+
+const ExplodingBox = lazy(() => import("../../components/lotus/ExplodingBox"));
+const Foam3DViewer = lazy(() => import("../../components/lotus/Foam3DViewer"));
+
+function Loader3D() {
+  return <div className="w-full h-[200px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>;
+}
 
 export default function HomeLotus() {
   const ref = useRef(null);
@@ -59,11 +64,13 @@ export default function HomeLotus() {
             </div>
 
             <motion.div style={{ y: heroY }} className="relative lg:sticky lg:top-[112px] space-y-4">
-              <ExplodingBox onExplode={setExploded} />
+              <Suspense fallback={<Loader3D />}>
+                <ExplodingBox onExplode={setExploded} />
+              </Suspense>
               
               <div className="grid grid-cols-2 gap-3">
-                <Foam3DViewer variant="epe-foam" height="200px" />
-                <Foam3DViewer variant="lotus" height="200px" />
+                <Suspense fallback={<Loader3D />}><Foam3DViewer variant="epe-foam" height="200px" /></Suspense>
+                <Suspense fallback={<Loader3D />}><Foam3DViewer variant="lotus" height="200px" /></Suspense>
               </div>
 
               <div className="bg-white border border-black/10 rounded-[12px] p-4 mono text-[10px]">

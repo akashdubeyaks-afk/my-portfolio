@@ -1,4 +1,6 @@
-import Foam3DViewer from "../../components/lotus/Foam3DViewer";
+import { lazy, Suspense } from "react";
+const Foam3DViewer = lazy(() => import("../../components/lotus/Foam3DViewer"));
+function Loader3D() { return <div className="w-full h-[200px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>; }
 
 export default function AboutLotus() {
   return (
@@ -13,9 +15,9 @@ export default function AboutLotus() {
         <div className="mt-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-12">
           <div className="space-y-6">
             <div className="rounded-[12px] overflow-hidden border border-black/10 h-[320px]">
-              <Foam3DViewer variant="ep-foam" height="320px" />
+              <Suspense fallback={<Loader3D />}><Foam3DViewer variant="ep-foam" height="320px" /></Suspense>
             </div>
-            <Foam3DViewer variant="lotus" height="320px" />
+            <Suspense fallback={<Loader3D />}><Foam3DViewer variant="lotus" height="320px" /></Suspense>
           </div>
           <div>
             <div className="mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-4">About Our Company — 3D Factory View</div>

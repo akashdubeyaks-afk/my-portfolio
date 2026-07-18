@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Foam3DViewer from "../../components/lotus/Foam3DViewer";
+import { lazy, Suspense } from "react";
+const Foam3DViewer = lazy(() => import("../../components/lotus/Foam3DViewer"));
+function Loader3D() { return <div className="w-full h-[200px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>; }
 
 const products = [
   { id: "epe-foam", num: "01", name: "EPE Foam", type: "Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm", desc: "Non-cross linked closed-cell. Numerous independent bubbles. Moisture, shockproof.", price: "₹2.3/pc", moq: "100 pcs", color: "#FEFEFE" },
@@ -40,7 +42,7 @@ export default function ProductsLotus() {
           <div className="rounded-[16px] overflow-hidden border border-black/10">
             <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-0">
               <div className="h-[560px]">
-                <Foam3DViewer variant="ep-foam" height="560px" />
+                <Suspense fallback={<Loader3D />}><Foam3DViewer variant="ep-foam" height="560px" /></Suspense>
               </div>
               <div className="p-6 bg-white border-l border-black/10">
                 <div className="mono text-[10px] uppercase opacity-40 mb-4">Box Contains — 6 Products Together</div>
