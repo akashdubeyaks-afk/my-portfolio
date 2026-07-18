@@ -30,14 +30,15 @@ export default function LotusNavbar() {
         </div>
 
         <div className="px-6 md:px-10 h-[64px] md:h-[72px] flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-4">
-            <div className="w-[36px] h-[36px] md:w-[42px] md:h-[42px] bg-white border border-black/[0.08] rounded-[8px] p-1 flex items-center justify-center">
-              <img src="/my-portfolio/lotus-logo.png" alt="Lotus" className="w-full h-full object-contain" onError={(e)=>{e.target.outerHTML='<div class=\'w-6 h-6 bg-[#6D28D9] rounded-full\'></div>'}} />
-            </div>
-            <div className="leading-[0.9]">
-              <div className="syne font-bold text-[15px] tracking-tight">LOTUS INTERNATIONAL</div>
-              <div className="mono text-[8px] tracking-[0.2em] uppercase opacity-50 mt-0.5">EVERY PACKAGING HAS A STORY</div>
-            </div>
+          <Link to="/" className="flex items-center">
+            {/* LOGO - PURE TRANSPARENT, NO BORDER/BACKGROUND */}
+            <img 
+              src="/my-portfolio/lotus-logo.png" 
+              alt="Lotus International - every packaging has a story" 
+              className="h-[36px] md:h-[44px] w-auto object-contain"
+              onError={(e)=>{e.target.src='/lotus-logo.png'}}
+              style={{ background: 'transparent' }}
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-10">

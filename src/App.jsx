@@ -61,8 +61,8 @@ export default function App() {
           <div className="max-w-[1600px] mx-auto grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10">
             <div>
               <div className="flex items-center gap-3">
-                <img src="/my-portfolio/lotus-logo.png" alt="Lotus" className="w-10 h-10 object-contain bg-white rounded-[10px] p-1" onError={(e)=>e.target.style.display='none'} />
-                <div><div className="font-black" style={{ fontFamily: 'Syne' }}>Lotus International</div><div className="text-[10px] tracking-widest uppercase opacity-60">every packaging has a story</div></div>
+                {/* LOGO - TRANSPARENT, NO BACKGROUND/BORDER */}
+                <img src="/my-portfolio/lotus-logo.png" alt="Lotus International" className="h-[44px] w-auto object-contain" style={{ background: 'transparent' }} onError={(e)=>e.target.style.display='none'} />
               </div>
               <p className="mt-4 text-sm text-white/60 max-w-[320px]">One of the largest fabricator and exporters of EPE foam. Custom shapes as per order for safe delivery. 1.5 Lakh sqft plant, ISO 9001 certified.</p>
               <div className="mt-6 flex gap-2">
