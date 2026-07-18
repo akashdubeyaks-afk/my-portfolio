@@ -6,21 +6,18 @@ import { ArrowUpRight } from "lucide-react";
 export default function HomeLotus() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
   return (
     <div ref={ref} className="bg-[#FAF9F6] text-[#0A0A0A]">
-      {/* HERO - $100M Editorial */}
       <section className="relative min-h-[92vh] md:min-h-[100vh] pt-[96px] md:pt-[112px] px-6 md:px-10 pb-12">
         <div className="max-w-[1600px] mx-auto">
-          {/* Top rule */}
           <div className="border-t border-black/10 pt-4 flex justify-between mono text-[10px] tracking-[0.2em] uppercase">
             <span className="opacity-50">Index — 01 / Home</span>
             <span className="hidden md:flex gap-8"><span>● Available for custom orders</span><span>48hr sample turnaround</span></span>
           </div>
 
           <div className="mt-8 md:mt-12 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 md:gap-16 items-start">
-            {/* Left */}
             <div>
               <h1 className="syne text-[13.5vw] md:text-[7.2vw] lg:text-[6.2vw] leading-[0.85] tracking-tighter font-bold">
                 <span className="block">FOAM THAT</span>
@@ -35,7 +32,7 @@ export default function HomeLotus() {
                 </p>
                 <div className="space-y-4">
                   <p className="mono text-[10px] leading-[1.6] uppercase tracking-wide opacity-60">
-                    We tie up with ISO 9001 certified manufacturing with 1.5 lakh sqft plant, high-end machines for world-class cushion packaging materials.
+                    ISO 9001 certified manufacturing with 1.5 lakh sqft plant, high-end machines for world-class cushion packaging materials.
                   </p>
                   <div className="flex gap-3">
                     <Link to="/contact" className="bg-black text-white px-6 py-3 rounded-full text-[12px] font-bold tracking-wide flex items-center gap-2 hover:bg-zinc-900 transition">Request Custom Sample <ArrowUpRight size={14} /></Link>
@@ -58,46 +55,20 @@ export default function HomeLotus() {
               </div>
             </div>
 
-            {/* Right - Product Visual - Real, not AI */}
             <motion.div style={{ y: heroY }} className="relative lg:sticky lg:top-[112px]">
               <div className="relative bg-white border border-black/[0.08] rounded-[16px] overflow-hidden">
-                {/* Technical header */}
                 <div className="flex justify-between items-center px-5 py-3 border-b border-black/[0.06] mono text-[10px] uppercase tracking-widest">
-                  <span>DWG — EP-FOAM-CUSTOM-01</span><span>Scale 1:5 • Tolerance ±0.5mm</span>
+                  <span>DWG — EP-FOAM-CUSTOM-01</span><span>Scale 1:5 • ±0.5mm</span>
                 </div>
-
-                <div className="relative aspect-[4/3] bg-[#F6F4EF] p-6 md:p-10">
-                  {/* Foam visual - CSS crafted, not image heavy */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-[78%] h-[64%]">
-                      {/* Foam base */}
-                      <div className="absolute inset-0 bg-[#EDE9E3] border border-black/10 rounded-[8px] shadow-[0_20px_60px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)]">
-                        {/* Cavity */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[62%] h-[58%] bg-[#0A0A0A] rounded-[6px] shadow-[inset_0_4px_12px_rgba(0,0,0,0.4)] flex items-center justify-center">
-                          <div className="w-[72%] h-[60%] border border-dashed border-white/20 rounded-[4px] flex items-center justify-center">
-                            <span className="mono text-[8px] text-white/40 uppercase">Your Product Here</span>
-                          </div>
-                        </div>
-                        {/* Texture dots */}
-                        <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`, backgroundSize: `14px 14px` }} />
-                      </div>
-
-                      {/* Dimension lines - technical */}
-                      <div className="absolute -top-6 left-0 right-0 h-[1px] bg-black/20"><span className="absolute -top-5 left-1/2 -translate-x-1/2 mono text-[9px] bg-[#F6F4EF] px-2">320mm</span></div>
-                      <div className="absolute -bottom-6 left-0 right-0 h-[1px] bg-black/20"><span className="absolute -bottom-5 left-1/2 -translate-x-1/2 mono text-[9px] bg-[#F6F4EF] px-2">300mm cavity</span></div>
-                      <div className="absolute top-0 -left-6 bottom-0 w-[1px] bg-black/20"><span className="absolute top-1/2 -left-8 -rotate-90 mono text-[9px] bg-[#F6F4EF] px-2">180mm</span></div>
-                    </div>
-                  </div>
-
-                  {/* Floating specs */}
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-between">
+                <div className="relative aspect-[4/3] bg-[#F6F4EF] overflow-hidden">
+                  <img src="/my-portfolio/images/hero-foam.jpg" alt="Custom EP Foam" className="w-full h-full object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex justify-between items-end">
                     <div className="bg-[#0A0A0A] text-white rounded-full px-3 py-1.5 mono text-[10px] flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> Shockproof 100% • EPE 25kg/m³
                     </div>
-                    <div className="hidden md:flex bg-white border border-black/10 rounded-full px-3 py-1.5 mono text-[10px]">Custom Fit • Zero Movement</div>
+                    <div className="hidden md:flex bg-white border border-black/10 rounded-full px-3 py-1.5 mono text-[10px]">Zero Movement</div>
                   </div>
                 </div>
-
                 <div className="px-5 py-4 grid grid-cols-3 gap-4 border-t border-black/[0.06] mono text-[10px]">
                   <div><div className="opacity-40 uppercase">Material</div><div className="font-bold mt-1">EPE Foam 30mm</div></div>
                   <div><div className="opacity-40 uppercase">Protection</div><div className="font-bold mt-1">Drop Test 1.2m ✓</div></div>
@@ -105,17 +76,19 @@ export default function HomeLotus() {
                 </div>
               </div>
 
-              <div className="mt-4 flex gap-2 mono text-[10px] uppercase">
-                <span className="px-3 py-1.5 rounded-full bg-black text-white">Custom Shapes</span>
-                <span className="px-3 py-1.5 rounded-full border border-black/10">Recyclable</span>
-                <span className="px-3 py-1.5 rounded-full border border-black/10">Moisture Proof</span>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10">
+                  <img src="/my-portfolio/images/epe-foam.jpg" alt="EPE Foam" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-[12px] overflow-hidden aspect-[4/3] border border-black/10">
+                  <img src="/my-portfolio/images/custom-fitment.jpg" alt="Custom Fitment" className="w-full h-full object-cover" />
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* PROBLEM / SOLUTION - Editorial */}
       <section className="border-y border-black/[0.08] bg-white">
         <div className="max-w-[1600px] mx-auto px-6 md:px-10 py-16 md:py-24 grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
           <div>
@@ -137,40 +110,40 @@ export default function HomeLotus() {
         </div>
       </section>
 
-      {/* PRODUCTS - Catalog style, not cards */}
       <section className="px-6 md:px-10 py-16 md:py-24 max-w-[1600px] mx-auto">
         <div className="flex justify-between items-end border-b border-black/[0.08] pb-6 mb-10">
           <h2 className="syne text-[9vw] md:text-[5vw] leading-[0.85] font-bold tracking-tighter">PRODUCTS &<br />SOLUTIONS</h2>
-          <div className="hidden md:block mono text-[10px] uppercase max-w-[240px] opacity-50">Polyethylene foamed cotton, also called EPE foam, is new eco packaging with closed-cell structure. Numerous independent bubbles.</div>
+          <div className="hidden md:block mono text-[10px] uppercase max-w-[240px] opacity-50">Polyethylene foamed cotton, also called EPE foam, is new eco packaging with closed-cell structure.</div>
         </div>
 
         <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
           {[
-            { id: "epe-foam", num: "01", name: "EPE Foam Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm • Custom", desc: "Non-cross linked closed-cell, moisture proof, shockproof, sound insulation, thermal, recyclable.", uses: "Electronics, Furniture, Medical" },
-            { id: "ep-foam", num: "02", name: "EP Foam — Custom Moulded", spec: "15–35 kg/m³ • Moulded • ±0.5mm Tolerance", desc: "Expanded polystyrene custom moulded as per product shape, ensures safe delivery for fragile items.", uses: "Engineering, Artillery Box, Printers" },
-            { id: "cross-linked", num: "03", name: "Cross Linked / EVA Foam", spec: "33–200 kg/m³ • High Resilience • Fine Cell", desc: "Premium grade for superior protection, ideal for high-end products where look matters.", uses: "Handicraft, Medical, Automotive" },
-            { id: "air-bubble", num: "04", name: "Air Bubble Pouches & Rolls", spec: "10–25mm Bubble • LDPE • Transparent", desc: "High strength nature due to air barrier, lightweight, reusable, scratch protection.", uses: "E-commerce, Glassware, Cosmetics" },
-            { id: "custom-fitments", num: "05", name: "Custom Foam Fitments", spec: "CAD • Sample First • Any Qty", desc: "100% made to order. Send product photo + LxWxH, we design cavity with zero movement.", uses: "Any Product, Any Size" },
+            { id: "epe-foam", num: "01", name: "EPE Foam Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm • Custom", desc: "Non-cross linked closed-cell, moisture proof, shockproof, sound insulation, thermal, recyclable.", uses: "Electronics, Furniture, Medical", img: "/my-portfolio/images/epe-foam.jpg" },
+            { id: "ep-foam", num: "02", name: "EP Foam — Custom Moulded", spec: "15–35 kg/m³ • Moulded • ±0.5mm Tolerance", desc: "Expanded polystyrene custom moulded as per product shape, ensures safe delivery for fragile items.", uses: "Engineering, Artillery Box, Printers", img: "/my-portfolio/images/ep-foam.jpg" },
+            { id: "cross-linked", num: "03", name: "Cross Linked / EVA Foam", spec: "33–200 kg/m³ • High Resilience • Fine Cell", desc: "Premium grade for superior protection, ideal for high-end products where look matters.", uses: "Handicraft, Medical, Automotive", img: "/my-portfolio/images/cross-linked-foam.jpg" },
+            { id: "air-bubble", num: "04", name: "Air Bubble Pouches & Rolls", spec: "10–25mm Bubble • LDPE • Transparent", desc: "High strength nature due to air barrier, lightweight, reusable, scratch protection.", uses: "E-commerce, Glassware, Cosmetics", img: "/my-portfolio/images/air-bubble.jpg" },
+            { id: "custom-fitments", num: "05", name: "Custom Foam Fitments", spec: "CAD • Sample First • Any Qty", desc: "100% made to order. Send product photo + LxWxH, we design cavity with zero movement.", uses: "Any Product, Any Size", img: "/my-portfolio/images/custom-fitment.jpg" },
           ].map((p) => (
-            <Link key={p.id} to={`/products/${p.id}`} className="group grid lg:grid-cols-[80px_1.2fr_0.8fr_0.7fr_40px] gap-6 py-8 items-center hover:bg-black/[0.02] -mx-6 md:-mx-10 px-6 md:px-10 transition">
+            <Link key={p.id} to={`/products/${p.id}`} className="group grid lg:grid-cols-[80px_80px_1.2fr_0.8fr_0.7fr_40px] gap-6 py-6 items-center hover:bg-black/[0.02] -mx-6 md:-mx-10 px-6 md:px-10 transition">
               <div className="mono text-[11px] opacity-30 group-hover:opacity-100 transition">({p.num})</div>
-              <div className="syne text-[22px] md:text-[28px] font-bold tracking-tight leading-none group-hover:tracking-wide transition-all duration-500">{p.name}</div>
-              <div className="mono text-[11px] opacity-60">{p.spec}</div>
-              <div className="text-[13px] leading-[1.4] opacity-60 hidden lg:block">{p.desc} <span className="opacity-40">— {p.uses}</span></div>
+              <div className="w-16 h-16 rounded-[8px] overflow-hidden border border-black/10 hidden md:block">
+                <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              </div>
+              <div className="syne text-[18px] md:text-[24px] font-bold tracking-tight leading-none group-hover:tracking-wide transition-all duration-500">{p.name}</div>
+              <div className="mono text-[11px] opacity-60 hidden lg:block">{p.spec}</div>
+              <div className="text-[12px] leading-[1.4] opacity-60 hidden lg:block">{p.desc} <span className="opacity-40">— {p.uses}</span></div>
               <div className="w-8 h-8 rounded-full border border-black/10 grid place-items-center group-hover:bg-black group-hover:text-white group-hover:rotate-45 transition-all duration-500">↗</div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* PROCESS */}
       <section className="bg-[#0A0A0A] text-[#FAF9F6] px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex justify-between items-start mb-16">
             <h2 className="syne text-[10vw] md:text-[5vw] leading-[0.85] font-bold tracking-tighter">HOW IT<br />WORKS</h2>
-            <div className="hidden md:block mono text-[10px] uppercase opacity-40 max-w-[260px]">No catalogs. No standard sizes. Everything is made to order for your product. 4 steps, 48hr sample.</div>
+            <div className="hidden md:block mono text-[10px] uppercase opacity-40 max-w-[260px]">No catalogs. No standard sizes. Everything made to order. 4 steps, 48hr sample.</div>
           </div>
-
           <div className="grid md:grid-cols-4 gap-[1px] bg-white/10 border border-white/10 rounded-[12px] overflow-hidden">
             {[
               ["01", "Send Product Details", "Photo + LxWxH + weight + fragile level. WhatsApp or email.", "2 min"],
@@ -180,38 +153,31 @@ export default function HomeLotus() {
             ].map(([num, title, desc, time]) => (
               <div key={num} className="bg-[#0A0A0A] p-8">
                 <div className="flex justify-between"><span className="mono text-[11px] opacity-40">({num})</span><span className="mono text-[10px] px-2 py-1 rounded-full bg-white/10">{time}</span></div>
-                <h4 className="mt-8 syne text-[20px] font-bold leading-tight">{title}</h4>
-                <p className="mt-3 text-[13px] leading-[1.5] opacity-60">{desc}</p>
+                <h4 className="mt-8 syne text-[18px] font-bold leading-tight">{title}</h4>
+                <p className="mt-3 text-[12px] leading-[1.5] opacity-60">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TRUST - Factory */}
       <section className="px-6 md:px-10 py-16 md:py-24 max-w-[1600px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <div>
           <div className="mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-6">Factory & Trust</div>
           <h2 className="syne text-[8vw] md:text-[4vw] leading-[0.85] font-bold tracking-tighter">1.5 LAKH SQFT.<br />ISO 9001.<br />HIGH-END<br />MACHINES.</h2>
           <div className="mt-8 space-y-6 text-[14px] leading-[1.6] opacity-70">
             <p>We tie up with renowned ISO 9001 certified manufacturing company. Factory premises comprising more than 1.5 lakhs sqft built-up area as per international standards.</p>
-            <p>Installed high-end quality machines that gives world-class output of cushion packaging materials. Rich experienced company in Packaging, Foam, Paper, EP Foam & Air Bubble Bag.</p>
-          </div>
-          <div className="mt-8 grid grid-cols-3 gap-[1px] bg-black/10 border border-black/10 rounded-[12px] overflow-hidden">
-            <div className="bg-[#FAF9F6] p-4 text-center"><div className="syne text-xl font-bold">2019</div><div className="mono text-[9px] uppercase opacity-50">Established</div></div>
-            <div className="bg-[#FAF9F6] p-4 text-center"><div className="syne text-xl font-bold">Bhiwandi</div><div className="mono text-[9px] uppercase opacity-50">Manufacturing Hub</div></div>
-            <div className="bg-[#FAF9F6] p-4 text-center"><div className="syne text-xl font-bold">1000+</div><div className="mono text-[9px] uppercase opacity-50">Clients</div></div>
+            <p>Installed high-end quality machines that gives world-class output of cushion packaging materials.</p>
           </div>
         </div>
         <div className="relative">
           <div className="aspect-[4/3] rounded-[16px] overflow-hidden bg-[#F0EDE8] border border-black/5">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200" alt="Factory" className="w-full h-full object-cover" />
+            <img src="/my-portfolio/images/factory.jpg" alt="Lotus Factory" className="w-full h-full object-cover" />
             <div className="absolute bottom-4 left-4 bg-[#0A0A0A] text-white px-4 py-2 rounded-full mono text-[10px] flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> Live Production • Bhiwandi Plant</div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-6 md:px-10 pb-20 max-w-[1600px] mx-auto">
         <div className="border border-black/10 rounded-[16px] p-[1px]">
           <div className="bg-[#0A0A0A] text-[#FAF9F6] rounded-[15px] px-8 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
