@@ -1,58 +1,55 @@
-import { motion } from "framer-motion";
-import { Factory, Award, Users, Recycle, Target, Eye, Heart } from "lucide-react";
-
 export default function AboutLotus() {
   return (
-    <div className="bg-[#FFFEFB] pt-28 md:pt-32">
-      <div className="px-6 md:px-10 max-w-[1600px] mx-auto">
-        <div className="inline-flex px-4 py-2 rounded-full bg-black/[0.04] border border-black/[0.06] text-[10px] tracking-[0.2em] uppercase">About Lotus International • Since 2019</div>
-        <h1 className="mt-6 text-[12vw] md:text-[6vw] leading-[0.85] font-black tracking-tighter" style={{ fontFamily: 'Syne' }}>WE EMERGED AS<br /><span className="text-[#7E22CE]">ONE OF THE LARGEST</span><br />FABRICATOR & EXPORTER</h1>
-        <p className="mt-6 max-w-[600px] text-black/60 leading-relaxed">We are committed to provide wide range of EPE foams, Cross linked Foam, Honeycomb and their products of superior quality at competitive prices for packaging needs. We tie up with ISO 9001 certified manufacturing company with 1.5 lakhs sqft plant, high-end quality machines giving world-class output.</p>
-      </div>
-
-      <div className="mt-16 px-6 md:px-10 max-w-[1600px] mx-auto grid md:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
-        <div className="rounded-[24px] overflow-hidden aspect-[4/3] bg-[#F5F3FF]">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000" alt="Factory" className="w-full h-full object-cover" />
+    <div className="bg-[#FAF9F6] pt-[88px] md:pt-[112px] px-6 md:px-10 pb-20">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="border-t border-black/10 pt-6 flex justify-between mono text-[10px] uppercase tracking-widest opacity-40">
+          <span>Index — 03 / About — Since 2019</span><span>Bhiwandi, Maharashtra • 19°17'N 73°04'E</span>
         </div>
-        <div className="space-y-10">
+
+        <h1 className="mt-12 syne text-[13vw] md:text-[7vw] leading-[0.8] font-bold tracking-tighter">WE EMERGED<br />AS ONE OF THE<br /><span className="serif italic font-light">LARGEST FABRICATORS</span></h1>
+
+        <div className="mt-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-12">
+          <div className="aspect-[4/3] rounded-[12px] overflow-hidden bg-[#EDE9E3] border border-black/5">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200" alt="Factory" className="w-full h-full object-cover" />
+          </div>
           <div>
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-40 mb-4">Our Culture and Values</h3>
-            <p className="text-2xl md:text-3xl font-black leading-[0.9] tracking-tight">Through commitment to quality, innovation and environment, we provide most dynamic and advanced technology base.</p>
+            <div className="mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-4">About Our Company</div>
+            <p className="text-[20px] md:text-[24px] leading-[1.3] tracking-tight font-medium">We are committed to provide wide range of EPE foams, Cross linked Foam, Honeycomb and their products of superior quality at competitive prices for packaging needs.</p>
+            <p className="mt-6 text-[14px] leading-[1.6] opacity-70">We tie up with renowned company which is ISO 9001 certified and well-established foam manufacturing company which have a plant. Factory premises comprising more than 1.5 lakhs sqft built-up area situated as per international standards. Installed high-end quality machines that gives world-class output of cushion packaging materials.</p>
+
+            <div className="mt-10 grid grid-cols-3 border border-black/10 rounded-[12px] overflow-hidden">
+              {[
+                ["1.5L", "Sqft Built-up\nAs per intl standards"],
+                ["ISO 9001", "Certified\nManufacturing"],
+                ["High-end", "Machines\nWorld-class output"],
+              ].map(([n,l])=>(
+                <div key={n} className="p-5 border-r last:border-r-0 border-black/10">
+                  <div className="syne text-xl font-bold">{n}</div>
+                  <div className="mono text-[9px] uppercase leading-[1.3] whitespace-pre opacity-60 mt-1">{l}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {[
-              [Factory, "1.5 Lakh", "Sqft Plant"],
-              [Award, "ISO 9001", "Certified"],
-              [Users, "1000+", "Clients"],
-            ].map(([Icon, n, l]) => (
-              <div key={l} className="text-center p-4 rounded-[16px] bg-white border border-black/5">
-                <Icon size={20} className="mx-auto text-[#7E22CE]" /><div className="mt-2 font-black text-xl">{n}</div><div className="text-[10px] uppercase tracking-widest opacity-50">{l}</div>
-              </div>
-            ))}
+        </div>
+
+        <div className="mt-20 border-t border-black/10 pt-12 grid md:grid-cols-3 gap-12">
+          <div>
+            <div className="mono text-[10px] uppercase opacity-40">01 / Culture and Values</div>
+            <h3 className="mt-4 syne text-2xl font-bold leading-tight">Through commitment to quality, innovation and environment.</h3>
+            <p className="mt-3 text-[13px] leading-[1.6] opacity-60">We provide one of the most dynamic and advanced technology bases within industry. Quality first, innovation always.</p>
+          </div>
+          <div>
+            <div className="mono text-[10px] uppercase opacity-40">02 / Unique Framework</div>
+            <h3 className="mt-4 syne text-2xl font-bold leading-tight">Purpose drives vision, vision drives strategy.</h3>
+            <p className="mt-3 text-[13px] leading-[1.6] opacity-60">We execute through operating framework in line with culture and values. Gorakhdhandha is our unique operating system.</p>
+          </div>
+          <div>
+            <div className="mono text-[10px] uppercase opacity-40">03 / Future Packaging</div>
+            <h3 className="mt-4 syne text-2xl font-bold leading-tight">Sustainable & innovative for circular economy.</h3>
+            <p className="mt-3 text-[13px] leading-[1.6] opacity-60">Join packaging powerhouse and create solutions for better tomorrow. Recycling, eco-friendly, high resistance.</p>
           </div>
         </div>
       </div>
-
-      <div className="mt-20 px-6 md:px-10 max-w-[1600px] mx-auto grid md:grid-cols-3 gap-6">
-        {[
-          { icon: Target, title: "Our Purpose", desc: "To protect every product as carefully as a lotus protects its petals, ensuring safe delivery with zero damage." },
-          { icon: Eye, title: "Our Vision", desc: "To be India's most trusted custom foam packaging partner with sustainable solutions." },
-          { icon: Heart, title: "Our Values", desc: "Quality first, innovation always, environment friendly, customer happiness without problems." },
-        ].map((v) => (
-          <div key={v.title} className="rounded-[20px] bg-white border border-black/5 p-8">
-            <v.icon size={24} className="text-[#7E22CE]" />
-            <h4 className="mt-4 font-black text-xl tracking-tight">{v.title}</h4>
-            <p className="mt-3 text-sm text-black/60 leading-relaxed">{v.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-16 mx-6 md:mx-10 rounded-[24px] bg-[#1A1A1A] text-white p-8 md:p-12">
-        <h3 className="text-[10px] tracking-[0.3em] uppercase opacity-40">Gorakhdhandha - Our Unique Framework</h3>
-        <p className="mt-4 text-2xl md:text-4xl font-black leading-[0.9] tracking-tight max-w-[800px]">Our purpose drives our vision and provides context for our strategy, which we then execute through our operating framework, in line with our culture and values.</p>
-      </div>
-
-      <div className="h-10" />
     </div>
   );
 }

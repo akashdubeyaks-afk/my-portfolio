@@ -1,58 +1,62 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Shield, Package } from "lucide-react";
 
 const products = [
-  { id: "epe-foam", title: "EPE Foam", cat: "Eco Friendly • Non-Cross Linked", price: "From ₹2.3/pc", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800", desc: "Polyethylene foamed cotton, new eco packaging with closed-cell structure, numerous independent bubbles, moisture protection, thermal insulation, recyclable.", features: ["Shockproof", "Sound Insulation", "Chemical Resistant", "Lightweight"], uses: ["Electronics", "Furniture", "Medical"] },
-  { id: "ep-foam", title: "EP Foam", cat: "High Density Protection", price: "Custom Quote", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800", desc: "Expanded Polystyrene foam custom molded as per product shape, ensures safe delivery for fragile items.", features: ["Custom Shapes", "High Strength", "Low Maintenance", "Precision Fit"], uses: ["Engineering", "Artillery Box", "Printers"] },
-  { id: "cross-linked", title: "Cross Linked / EVA Foam", cat: "Premium Grade", price: "From ₹150/kg", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800", desc: "Superior quality foam for superior protection, ideal substitute for traditional materials.", features: ["High Resilience", "Durable", "Fine Finish", "Long Life"], uses: ["Handicraft", "Medical Equipment", "Automotive"] },
-  { id: "air-bubble", title: "Air Bubble Bags & Rolls", cat: "Lightweight • High Strength", price: "From ₹1.5/mtr", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800", desc: "Air bubble pouches highly demanded due to high strength nature, protects from scratches and impact.", features: ["Transparent", "Lightweight", "Reusable", "Moisture Proof"], uses: ["E-commerce", "Glassware", "Cosmetics"] },
-  { id: "custom-fitments", title: "Custom Foam Fitments", cat: "Made To Order", price: "As Per Design", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800", desc: "We make customized shapes as per your product dimensions. Send product, we design perfect cavity.", features: ["100% Custom", "CAD Design", "Sample First", "Bulk Production"], uses: ["Any Product", "Any Size", "Any Industry"] },
-  { id: "honeycomb", title: "Honeycomb Paper", cat: "Sustainable • Strong", price: "From ₹80/kg", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800", desc: "Hexagonal honeycomb structure - nature's strongest, bears force from all sides, eco alternative.", features: ["Eco Friendly", "Hexagonal Strong", "Biodegradable", "Lightweight"], uses: ["Export Packaging", "Furniture", "Doors"] },
+  { id: "epe-foam", num: "01", name: "EPE Foam", type: "Sheet & Fitments", spec: "18–35 kg/m³ • 0.5–100mm • White/Pink/Black", desc: "Non-cross linked closed-cell. Numerous independent bubbles. Moisture, shockproof, sound, thermal, recyclable.", detail: "Polyethylene foamed cotton, eco-friendly packaging. Ideal substitute for thermocol and PU. Low maintenance. Used for printers, computers, engineering, furniture, medical, artillery box.", price: "₹2.3/pc", moq: "100 pcs" },
+  { id: "ep-foam", num: "02", name: "EP Foam", type: "Custom Moulded", spec: "15–35 kg/m³ • Moulded • ±0.5mm Tolerance", detail: "Expanded polystyrene custom moulded as per product shape. Precision cavity ensures zero movement. Low maintenance.", desc: "High strength, custom shapes, precision fit for fragile electronics and machinery.", price: "Custom Quote", moq: "50 pcs" },
+  { id: "cross-linked", num: "03", name: "Cross Linked / EVA", type: "Premium Grade", spec: "33–200 kg/m³ • High Resilience • Fine Cell", detail: "Superior quality for premium products where look and feel matters. Fine cell structure, water resistant, long life.", desc: "High-end packaging, medical devices, automotive parts, handicraft. Fine finish.", price: "₹150/kg", moq: "20 kg" },
+  { id: "air-bubble", num: "04", name: "Air Bubble Bags", type: "Pouches & Rolls", spec: "10–25mm Bubble • LDPE • Transparent", detail: "High strength air barrier gives cushioning and surface protection. Lightweight, reusable, moisture proof.", desc: "E-commerce, glassware, cosmetics, fragile items. Scratch protection.", price: "₹1.5/mtr", moq: "100 mtr" },
+  { id: "custom-fitments", num: "05", name: "Custom Fitments", type: "Made To Order", spec: "CAD • Sample First • Any Qty • Any Shape", detail: "100% made to order. Send product photo + LxWxH + weight. We design cavity, no movement, drop test 1.2m.", desc: "Any product, any size, any industry. 48hr sample, 3-5 days bulk.", price: "As Per Design", moq: "100 pcs" },
+  { id: "honeycomb", num: "06", name: "Honeycomb Paper", type: "Sustainable", spec: "Hexagonal • Eco • Biodegradable", detail: "Bees hexagonal honeycomb - strongest structure, bears force from all sides. More powerful than round/square.", desc: "Eco alternative to thermocol & wood. Export packaging, furniture, doors.", price: "₹80/kg", moq: "50 kg" },
 ];
 
 export default function ProductsLotus() {
   return (
-    <div className="bg-[#FFFEFB] pt-28 md:pt-32 px-6 md:px-10 pb-20">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between gap-6 mb-12">
-          <h1 className="text-[12vw] md:text-[6vw] leading-[0.85] font-black tracking-tighter" style={{ fontFamily: 'Syne' }}>PRODUCTS<br /><span className="text-[#7E22CE]">& SOLUTIONS</span></h1>
-          <p className="md:max-w-[360px] text-black/60 leading-relaxed">Rich experienced company in Packaging, Foam, Paper, EP Foam & Air Bubble Bag. Superior quality at competitive prices.</p>
+    <div className="bg-[#FAF9F6] pt-[88px] md:pt-[112px]">
+      <div className="px-6 md:px-10 max-w-[1600px] mx-auto">
+        <div className="border-t border-black/10 pt-6 flex justify-between mono text-[10px] uppercase tracking-widest">
+          <span className="opacity-40">Index — 02 / Products — 06 Solutions</span><span className="hidden md:block opacity-40">All custom • No standard sizes • Made to order</span>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-12 md:mt-16 grid lg:grid-cols-[0.8fr_1.2fr] gap-12">
+          <h1 className="syne text-[13vw] md:text-[7vw] lg:text-[6vw] leading-[0.8] font-bold tracking-tighter">PRODUCTS<br /><span className="serif italic font-light">& SOLUTIONS</span></h1>
+          <div className="lg:pt-4">
+            <p className="text-[18px] leading-[1.5] max-w-[480px]">Rich experienced company in Packaging, Foam, Paper, EP Foam & Air Bubble Bag. Superior quality at competitive prices. Every product is made to order.</p>
+            <div className="mt-6 flex gap-2 mono text-[10px] uppercase">
+              <span className="px-3 py-1.5 rounded-full bg-black text-white">6 Categories</span>
+              <span className="px-3 py-1.5 rounded-full border border-black/10">Custom Shapes</span>
+              <span className="px-3 py-1.5 rounded-full border border-black/10">48hr Sample</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16 border-y border-black/10 divide-y divide-black/10">
           {products.map((p, i) => (
-            <motion.div key={p.id} initial={{ y: 30, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} whileHover={{ y: -6 }} className="group rounded-[20px] bg-white border border-black/[0.06] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all">
-              <div className="aspect-[4/3] overflow-hidden relative">
-                <img src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold uppercase">{p.cat}</span>
+            <motion.div key={p.id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+              <Link to={`/products/${p.id}`} className="group grid lg:grid-cols-[80px_1.3fr_0.9fr_0.6fr_120px_40px] gap-4 md:gap-6 py-8 md:py-10 items-start hover:bg-black/[0.02] -mx-6 md:-mx-10 px-6 md:px-10 transition">
+                <div className="mono text-[11px] opacity-30">({p.num})</div>
+                <div>
+                  <div className="mono text-[10px] uppercase opacity-40">{p.type}</div>
+                  <div className="syne text-[24px] md:text-[32px] font-bold tracking-tight leading-none mt-1 group-hover:tracking-wide transition-all duration-500">{p.name}</div>
+                  <div className="mono text-[10px] mt-2 opacity-50">{p.spec}</div>
                 </div>
-                <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#1A1A1A] text-white text-[10px] font-bold">{p.price}</div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-black tracking-tight">{p.title}</h3>
-                <p className="text-xs text-black/50 mt-2 leading-relaxed line-clamp-3">{p.desc}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {p.features.map((f) => (
-                    <span key={f} className="px-2.5 py-1 rounded-full bg-black/[0.04] border border-black/[0.06] text-[10px] font-bold uppercase tracking-wide">{f}</span>
-                  ))}
+                <div className="text-[13px] leading-[1.5] opacity-70 hidden lg:block">{p.detail}</div>
+                <div className="hidden md:block">
+                  <div className="mono text-[10px] uppercase opacity-40">From</div>
+                  <div className="font-bold mt-1">{p.price}</div>
+                  <div className="mono text-[9px] opacity-40 mt-1">MOQ: {p.moq}</div>
                 </div>
-                <div className="mt-5 flex justify-between items-center">
-                  <span className="text-[10px] tracking-widest uppercase opacity-40">Uses: {p.uses.join(" • ")}</span>
-                  <Link to={`/products/${p.id}`} className="w-9 h-9 rounded-full bg-[#7E22CE] text-white grid place-items-center group-hover:rotate-45 transition duration-500"><ArrowUpRight size={16} /></Link>
+                <div className="hidden lg:flex flex-col gap-1">
+                  <span className="text-[11px] leading-tight">{p.desc}</span>
                 </div>
-              </div>
+                <div className="w-8 h-8 rounded-full border border-black/10 grid place-items-center group-hover:bg-black group-hover:text-white transition">↗</div>
+              </Link>
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-16 rounded-[24px] bg-[#1A1A1A] text-white p-8 md:p-12 flex flex-col md:flex-row justify-between gap-6 items-center">
-          <div>
-            <h3 className="text-2xl md:text-3xl font-black tracking-tight">Need Custom Shape For Your Product?</h3>
-            <p className="text-white/60 mt-2">Send us product dimensions, we will design foam cavity with CAD + sample.</p>
-          </div>
-          <Link to="/contact" className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-zinc-100 transition flex items-center gap-2">Get Custom Quote <Package size={16} /></Link>
+        <div className="py-12 flex justify-between mono text-[10px] uppercase opacity-40">
+          <span>Need custom spec? Send product + dimensions — CAD in 4 hours</span><span className="hidden md:block">sales@lotusinternational.co.in • +91 9322021868</span>
         </div>
       </div>
     </div>

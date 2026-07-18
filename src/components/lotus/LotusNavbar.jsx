@@ -4,84 +4,77 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function LotusNavbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState(false);
   const loc = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const links = [
-    { to: "/", label: "Home" },
-    { to: "/products", label: "Products" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
+    { to: "/", label: "Index", num: "01" },
+    { to: "/products", label: "Products", num: "02" },
+    { to: "/about", label: "About", num: "03" },
+    { to: "/contact", label: "Contact", num: "04" },
   ];
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-3 md:py-4 flex justify-between items-center transition-all ${
-          scrolled ? "bg-[#FFFEFB]/90 backdrop-blur-xl border-b border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.04)]" : "bg-transparent"
-        }`}
-      >
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-[12px] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)] p-1.5 grid place-items-center">
-            <img src="/my-portfolio/lotus-logo.png" alt="Lotus" className="w-full h-full object-contain" onError={(e)=>{e.target.style.display='none'; e.target.nextSibling.style.display='block'}} />
-            <div className="hidden w-8 h-8 rounded-full bg-[#7E22CE] text-white grid place-items-center font-black text-xs">L</div>
-          </div>
-          <div className="leading-none">
-            <div className="font-black tracking-tight text-[16px] md:text-[18px]" style={{ fontFamily: 'Syne' }}><span className="text-[#7E22CE]">Lotus</span> <span className="text-[#2E7D32]">International</span></div>
-            <div className="text-[8px] md:text-[9px] tracking-[0.2em] uppercase opacity-60 bg-[#7E22CE] text-white px-1.5 py-0.5 rounded mt-0.5 inline-block">every packaging has a story</div>
-          </div>
-        </Link>
-
-        <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-black/[0.04] border border-black/[0.06]">
-          {links.map((l) => {
-            const active = loc.pathname === l.to || (l.to !== "/" && loc.pathname.startsWith(l.to));
-            return (
-              <Link key={l.to} to={l.to} className={`px-5 py-2 rounded-full text-[12px] tracking-wide font-medium transition ${active ? "bg-[#7E22CE] text-white shadow" : "hover:bg-black/5"}`}>
-                {l.label}
-              </Link>
-            );
-          })}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-[#FAF9F6]/92 backdrop-blur-[20px] border-b border-black/[0.06]" : "bg-transparent"}`}>
+        {/* Top technical bar */}
+        <div className="hidden md:flex border-b border-black/[0.06] px-10 py-2 justify-between text-[10px] mono tracking-wide uppercase">
+          <span className="opacity-50">Lotus International ©2019—2026 • Bhiwandi, MH • 19°17'N 73°04'E</span>
+          <span className="flex gap-6"><span>ISO 9001:2015</span><span>1.5L SQFT PLANT</span><span>sales@lotusinternational.co.in</span></span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <a href="tel:+919322021868" className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A1A] text-white text-xs font-bold hover:bg-black transition">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" /> +91 9322021868
-          </a>
-          <Link to="/contact" className="px-5 py-2.5 rounded-full bg-[#7E22CE] text-white text-xs md:text-sm font-bold hover:bg-[#6A1B9A] transition hidden md:block">Get Quote</Link>
-          <button onClick={() => setOpen(!open)} className="lg:hidden w-10 h-10 rounded-full bg-[#1A1A1A] text-white grid place-items-center">
-            <div className="space-y-1">
-              <motion.div animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }} className="w-4 h-0.5 bg-current" />
-              <motion.div animate={{ opacity: open ? 0 : 1 }} className="w-4 h-0.5 bg-current" />
-              <motion.div animate={{ rotate: open ? -45 : 0, y: open ? -4 : 0 }} className="w-4 h-0.5 bg-current" />
+        <div className="px-6 md:px-10 h-[64px] md:h-[72px] flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-4">
+            <div className="w-[36px] h-[36px] md:w-[42px] md:h-[42px] bg-white border border-black/[0.08] rounded-[8px] p-1 flex items-center justify-center">
+              <img src="/my-portfolio/lotus-logo.png" alt="Lotus" className="w-full h-full object-contain" onError={(e)=>{e.target.outerHTML='<div class=\'w-6 h-6 bg-[#6D28D9] rounded-full\'></div>'}} />
             </div>
-          </button>
+            <div className="leading-[0.9]">
+              <div className="syne font-bold text-[15px] tracking-tight">LOTUS INTERNATIONAL</div>
+              <div className="mono text-[8px] tracking-[0.2em] uppercase opacity-50 mt-0.5">EVERY PACKAGING HAS A STORY</div>
+            </div>
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-10">
+            {links.map((l) => {
+              const active = loc.pathname === l.to || (l.to !== "/" && loc.pathname.startsWith(l.to));
+              return (
+                <Link key={l.to} to={l.to} className="group flex items-baseline gap-2">
+                  <span className="mono text-[10px] opacity-40 group-hover:opacity-100 transition">{l.num}</span>
+                  <span className={`text-[13px] tracking-wide font-medium ${active ? "border-b border-black pb-0.5" : "opacity-60 group-hover:opacity-100 hover-underline"}`}>{l.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a href="tel:+919322021868" className="hidden md:block mono text-[11px] tracking-wide border border-black/10 px-4 py-2 rounded-full hover:bg-black hover:text-white transition">+91 93220 21868</a>
+            <Link to="/contact" className="hidden md:flex bg-[#0A0A0A] text-[#FAF9F6] px-5 py-2.5 rounded-full text-[12px] font-bold tracking-wide hover:bg-black transition">Request Sample →</Link>
+            <button onClick={() => setMenu(!menu)} className="lg:hidden w-10 h-10 border border-black/10 rounded-full grid place-items-center">
+              <div className="space-y-1"><div className={`w-4 h-px bg-black transition ${menu ? "rotate-45 translate-y-1" : ""}`} /><div className={`w-4 h-px bg-black transition ${menu ? "-rotate-45 -translate-y-1" : ""}`} /></div>
+            </button>
+          </div>
         </div>
-      </motion.nav>
+      </header>
 
       <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0, y: "-100%" }} animate={{ opacity: 1, y: "0%" }} exit={{ opacity: 0, y: "-100%" }} transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-40 bg-[#FFFEFB] p-6 pt-24 lg:hidden">
-            <div className="space-y-1">
-              {links.map((l) => (
-                <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-4 text-[12vw] leading-[0.85] font-black tracking-tighter border-b border-black/5">
-                  {l.label}
+        {menu && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-[#FAF9F6] pt-[88px] px-6 lg:hidden">
+            {links.map((l, i) => (
+              <motion.div key={l.to} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: i * 0.07 }} className="border-b border-black/10">
+                <Link to={l.to} onClick={() => setMenu(false)} className="flex justify-between items-center py-6">
+                  <span className="syne text-[14vw] leading-none font-bold tracking-tighter">{l.label}</span>
+                  <span className="mono text-xs opacity-40">{l.num}</span>
                 </Link>
-              ))}
-            </div>
-            <div className="mt-10 p-6 rounded-[20px] bg-[#1A1A1A] text-white">
-              <div className="text-xs uppercase tracking-widest opacity-60">Contact</div>
-              <div className="mt-2 font-bold">sales@lotusinternational.co.in</div>
-              <div className="font-bold">+91 9322021868</div>
-              <div className="mt-4 text-xs opacity-60">Jai Jalram Complex, Gala No 11/6-1, Pimplas, Bhiwandi - 421305</div>
+              </motion.div>
+            ))}
+            <div className="mt-10 mono text-[10px] uppercase leading-relaxed opacity-50">
+              Jai Jalram Complex, Gala No 11/6-1, Pimplas<br/>Bhiwandi — 421305, Thane, MH<br/><br/>sales@lotusinternational.co.in<br/>Mon—Sat, 10AM—7PM
             </div>
           </motion.div>
         )}
