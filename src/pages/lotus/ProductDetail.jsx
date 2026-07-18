@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { lazy, Suspense } from "react";
+const ProductVideoShots = lazy(() => import("../../components/lotus/ProductVideoShots"));
 const Foam3DViewer = lazy(() => import("../../components/lotus/Foam3DViewer"));
-function Loader3D() { return <div className="w-full h-[320px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>; }
+function Loader3D() { return <div className="w-full h-[400px] rounded-[12px] bg-[#F6F4EF] border border-black/5 grid place-items-center"><div className="w-6 h-6 border border-black/20 border-t-black rounded-full animate-spin" /></div>; }
 
 const data = {
   "epe-foam": { name: "EPE Foam", type: "Sheet & Fitments", desc: "Polyethylene foamed cotton, new eco packaging with non-cross linking closed-cell structure.", long: "Consists of numerous independent bubbles produced after physical foaming. Advantages: moisture protection, shockproof, sound insulation, thermal insulation, recycling, eco-friendly, high resistance to collision, chemical resistant. Ideal substitute of traditional materials.", specs: ["Density: 18-35 kg/m³", "Thickness: 0.5-100mm", "Color: White, Pink, Black", "Size: Custom as per order"], uses: ["Printers", "Computers", "Engineering", "Furniture", "Medical", "Artillery Box"] },
@@ -57,7 +58,11 @@ export default function ProductDetail() {
           </div>
 
           <div className="space-y-6">
-            <Suspense fallback={<Loader3D />}><Foam3DViewer variant={id} height="520px" /></Suspense>
+            <Suspense fallback={<Loader3D />}><ProductVideoShots productId={id} /></Suspense>
+            <div className="hidden md:block">
+              <div className="mono text-[10px] uppercase opacity-40 mb-3">Also — Interactive 3D Viewer</div>
+              <Suspense fallback={<Loader3D />}><Foam3DViewer variant={id} height="320px" /></Suspense>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-[12px] bg-white border border-black/10 p-4">
                 <div className="mono text-[10px] uppercase opacity-40">Material</div><div className="font-bold mt-1 text-sm">{p.type}</div><div className="mt-2 w-full h-2 rounded-full bg-black/5"><div className="h-full w-[80%] bg-black rounded-full" /></div>
